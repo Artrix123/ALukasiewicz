@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.JS</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body>
+    <div x-data="{count:0,increment(){this.count++;},decrement(){this.count--;} , message:' '}">
+        <button x-bind:disabled="count === 0" @click="decrement()">Zmiejsz</button>
+        <!--<button :disabled="count === 0">Zmiejsz</button>-->
+        <button x-on:click="increment()">Zwiększ</button>
+        <!--<button @click="count++">Zwiększ</button>-->
+        <p x-text="'Aktualna wartość to: ' + count"></p>
+        <!--<div x-html="'<strong>Aktualna wartość to:</strong>' + count"></div>-->
+        <div x-show="count > 0 && count < 5">Masz jakieś punkty!</div>
+        <template x-if="count >= 5">
+            <div>Masz 5 lub więcej punktów!</div>
+        </template></br>
+        <template x-for="n in count" :key="n">
+            <div x-text="'Element ' + n"></div>
+        </template></br>
+        <input type="text" x-model="message" /></br>
+        <strong>
+            <p x-text="message"></p>
+        </strong>
+    </div>
+    <div x-data="{message:'Ładowanie...'}" x-init="setTimeout(() => {message = 'Witaj w aplikacji Alpine.JS'}, 2000)">
+        <div x-text="message"></div>
+    </div></br>
+    <div x-data>
+        <input type="text" x-ref="imputField" />
+        <button @click="$refs.imputField.focus()">ustaw fokus</button>
+        <button @click="$refs.imputField.value = 'Wypełniona wartość'">Wypełnij</button>
+    </div>
+    <div class="card shadow" :class="{'active' : isActive}"></div>
+</body>
+
+</html>
